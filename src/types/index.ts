@@ -1,3 +1,16 @@
+export type Kind =
+  | 'primary'
+  | 'secondary'
+  | 'warning'
+  | 'info'
+  | 'success'
+  | 'error'
+  | 'outline'
+
+export type Sizes = 'xs' | 'sm' | 'lg'
+
+export type BorderRadius = 'sm' | 'md' | 'lg' | 'full' | 'none'
+
 export type Place = {
   name: string
   country?: string
