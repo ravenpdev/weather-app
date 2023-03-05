@@ -5,7 +5,6 @@ export type Kind =
   | 'info'
   | 'success'
   | 'error'
-  | 'outline'
 
 export type Sizes = 'xs' | 'sm' | 'lg'
 
