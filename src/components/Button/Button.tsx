@@ -13,13 +13,13 @@ type ButtonProps = {
 }
 
 const Button = ({
-  type,
-  children,
+  type = 'button',
   onClick,
   kind,
   size,
-  border,
-  borderRadius,
+  border = false,
+  borderRadius = 'none',
+  children,
 }: ButtonProps) => {
   const classes = ['py-1 px-3']
 
@@ -57,7 +57,7 @@ const Button = ({
     case 'sm':
       classes.push('text-sm')
       break
-    case 'large':
+    case 'lg':
       classes.push('text-lg')
       break
   }
