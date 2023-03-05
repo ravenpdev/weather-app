@@ -18,6 +18,7 @@ module.exports = {
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 'off',
+    'react/display-name': 'off',
   },
   settings: {
     'import/resolver': {
