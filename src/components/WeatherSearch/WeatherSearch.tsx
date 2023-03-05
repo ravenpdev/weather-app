@@ -28,7 +28,8 @@ const WeatherSearch = ({
 
         <Button
           type="submit"
-          className="rounded-r-md bg-purple-500 px-4 text-sm text-purple-50 hover:bg-purple-600"
+          size="sm"
+          kind="primary"
           onClick={handleOnSubmit}
         >
           Search
