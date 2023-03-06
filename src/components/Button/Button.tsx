@@ -1,91 +1,152 @@
-import { BorderRadius, Kind, Sizes } from '@/types'
+import { BorderInsets, Color } from '@/types'
 
-type ButtonType = 'submit' | 'button' | 'reset'
-
-type ButtonProps = {
-  type: ButtonType
-  kind?: Kind
-  size?: Sizes
-  children: React.ReactNode
-  onClick?: () => void
-  border?: boolean
-  borderRadius?: BorderRadius
+type TextButttonProps = {
+  variant: 'text'
+  borderInset?: never
 }
 
-const Button = ({
-  type = 'button',
-  onClick,
-  kind,
-  size,
-  border = false,
-  borderRadius = 'none',
-  children,
-}: ButtonProps) => {
-  const classes = ['py-1 px-3']
+type RoundedButtonProps = {
+  variant: 'contained'
+  borderInset?: never
+}
 
-  if (border) {
-    classes.push('border')
-  }
+type OutlinedButtonProps = {
+  variant: 'outlined'
+  borderInset?: never
+}
 
-  switch (kind) {
-    case 'primary':
-      classes.push('bg-purple-500 text-purple-50 hover:bg-purple-600')
+type CustomButtonProps = {
+  variant: 'custom'
+  borderInset: BorderInsets
+}
+
+type ButtonProps = {
+  color?: Color
+  type?: 'button' | 'reset' | 'submit'
+  size?: 'small' | 'medium' | 'large'
+  onClick?: () => void
+  disabled?: boolean
+  children: React.ReactNode
+} & (
+  | TextButttonProps
+  | RoundedButtonProps
+  | OutlinedButtonProps
+  | CustomButtonProps
+)
+
+const Button = (props: ButtonProps) => {
+  const {
+    type = 'button',
+    variant,
+    color,
+    size = 'medium',
+    borderInset,
+    children,
+    disabled,
+  } = props
+
+  const css: string[] = []
+
+  switch (borderInset) {
+    case 'top':
+      css.push('rounded-t')
       break
-    case 'secondary':
-      classes.push('bg-pink-500 text-pink-50 hover:bg-pink-600')
+    case 'left':
+      css.push('rounded-l')
       break
-    case 'warning':
-      classes.push('bg-amber-500 text-amber-50 hover:bg-amber-600')
+    case 'right':
+      css.push('rounded-r')
       break
-    case 'info':
-      classes.push('bg-sky-500 text-sky-50 hover:bg-sky-600')
+    case 'botton':
+      css.push('rounded-b')
       break
-    case 'success':
-      classes.push('bg-teal-500 text-teal-50 hover:bg-teal-600')
+    case 'full':
+      css.push('rounded-full')
       break
-    case 'error':
-      classes.push('bg-red-500 text-red-50 hover:bg-red-600')
+    case 'none':
+      css.push('rounded-none')
       break
     default:
-      classes.push('bg-gray-100 hover:bg-gray-200')
+      css.push('rounded')
   }
 
   switch (size) {
-    case 'xs':
-      classes.push('text-xs')
+    case 'small':
+      css.push('text-sm py-0.5 px-1')
       break
-    case 'sm':
-      classes.push('text-sm')
+    case 'medium':
+      css.push('text-base py-1 px-3')
       break
-    case 'lg':
-      classes.push('text-lg')
+    case 'large':
+      css.push('text-xl py-1.5 px-4')
       break
   }
 
-  if (borderRadius) {
-    switch (borderRadius) {
-      case 'sm':
-        classes.push('rounded-sm')
+  if (variant === 'contained') {
+    switch (color) {
+      case 'primary':
+        css.push('bg-purple-500 text-purple-50 hover:bg-purple-400')
         break
-      case 'md':
-        classes.push('rounded-md')
-        break
-      case 'lg':
-        classes.push('rounded-lg')
-        break
-      case 'full':
-        classes.push('rounded-full')
+      case 'secondary':
+        css.push('bg-pink-500 text-pink-50 hover:text-pink-400')
         break
       default:
-        classes.push('rounded-none')
+        css.push('bg-gray-50 text-gray-700 hover:bg-gray-100')
+    }
+  }
+
+  if (variant === 'outlined') {
+    css.push('border')
+    switch (color) {
+      case 'primary':
+        css.push(
+          'border-purple-500 text-purple-500 hover:text-purple-400 hover:border-purple-400'
+        )
+        break
+      case 'secondary':
+        css.push(
+          'border-pink-500 text-pink-500 hover:text-pink-400 hover:border-purple-400'
+        )
+        break
+      default:
+        css.push(
+          'bg-gray-500 text-gray-500 hover:text-gray-400 hover:border-purple-500'
+        )
+    }
+  }
+
+  if (variant === 'text') {
+    switch (color) {
+      case 'primary':
+        css.push('hover:bg-purple-100')
+        break
+      case 'secondary':
+        css.push('hover:bg-pink-100')
+        break
+      default:
+        css.push('bg-white hover:bg-opacity-20')
+    }
+  }
+
+  if (variant === 'custom') {
+    switch (color) {
+      case 'primary':
+        css.push('bg-purple-500 text-purple-50 hover:bg-purple-400')
+        break
+      case 'secondary':
+        css.push('hover:bg-pink-100')
+        break
+      default:
+        css.push('bg-white hover:bg-opacity-20')
     }
   }
 
   return (
     <button
-      className={classes.join(' ')}
       type={type}
-      onClick={onClick}
+      className={css.join(' ')}
+      onClick={props.onClick}
+      disabled={disabled}
     >
       {children}
     </button>
