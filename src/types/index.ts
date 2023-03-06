@@ -1,4 +1,4 @@
-export type Kind =
+export type Color =
   | 'primary'
   | 'secondary'
   | 'warning'
@@ -6,9 +6,7 @@ export type Kind =
   | 'success'
   | 'error'
 
-export type Sizes = 'xs' | 'sm' | 'lg'
-
-export type BorderRadius = 'sm' | 'md' | 'lg' | 'full' | 'none'
+export type BorderInsets = 'top' | 'left' | 'right' | 'botton' | 'full' | 'none'
 
 export type Place = {
   name: string

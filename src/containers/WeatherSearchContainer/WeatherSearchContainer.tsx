@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, TextField, WeatherSearch } from '@/components'
+import { WeatherSearch } from '@/components'
 import { Place } from '@/types'
 
 const API_KEY = import.meta.env.VITE_OPEN_WEATHER_API_KEY
@@ -14,7 +14,7 @@ const WeatherSearchContainer = () => {
   const [selectedOption, setSelectedOption] = useState<Place | null>(null)
 
   useEffect(() => {
-    // console.log(import.meta.env.VITE_OPEN_WEATHER_API_KEY)
+    inputFocus()
   }, [])
 
   const inputFocus = () => {
@@ -82,6 +82,7 @@ const WeatherSearchContainer = () => {
         handleOnInputChange={handleOnInputChange}
         handleOnSubmit={handleOnSubmit}
         handleOnSelectOption={handleOnSelectOption}
+        inputRef={inputRef}
       />
     </div>
   )

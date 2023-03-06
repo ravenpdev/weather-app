@@ -8,6 +8,7 @@ type WeatherSearchProps = {
   handleOnInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleOnSubmit: () => void
   handleOnSelectOption: (value: Place) => void
+  inputRef: React.RefObject<HTMLInputElement>
 }
 
 const WeatherSearch = ({
@@ -16,20 +17,26 @@ const WeatherSearch = ({
   handleOnInputChange,
   handleOnSubmit,
   handleOnSelectOption,
+  inputRef,
 }: WeatherSearchProps) => {
   return (
     <section className="relative mt-8">
       <div className="flex">
         <TextField
-          className="w-full rounded-l-md bg-white bg-opacity-70 p-2 outline-none focus:bg-opacity-100"
-          onChange={handleOnInputChange}
+          type="text"
+          variant="custom"
           value={term}
+          size="medium"
+          ref={inputRef}
+          onChange={handleOnInputChange}
+          borderInset="left"
         />
 
         <Button
+          variant="custom"
           type="submit"
-          size="sm"
-          kind="primary"
+          color="primary"
+          borderInset="right"
           onClick={handleOnSubmit}
         >
           Search
